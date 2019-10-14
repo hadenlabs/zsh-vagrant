@@ -32,6 +32,7 @@ PROVISION_DIR:=$(ROOT_DIR)/provision
 FILE_README:=$(ROOT_DIR)/README.rst
 PATH_DOCKER_COMPOSE:=docker-compose.yml -f provision/docker-compose
 APP_SERVICE:=app
+CHECK_SERVICE:=check
 
 docker-compose:=$(PIPENV_RUN) docker-compose
 
