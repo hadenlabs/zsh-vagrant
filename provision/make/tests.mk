@@ -6,7 +6,6 @@ test.help:
 	@echo '        test.all   	             Run all module test'
 	@echo '        test.picked               run test only commit'
 	@echo '        test.lint                 Run all pre-commit'
-	@echo '        test.lint.docker          Run all pre-commit in docker'
 	@echo '        test.syntax               Run all syntax in code'
 	@echo '        test.validate             Run all validation fixture dead in code'
 	@echo ''
@@ -36,12 +35,8 @@ test.validate: clean
 		${APP_SERVICE} bash -c "$(PIPENV_RUN) pytest --dead-fixtures"
 
 test.lint: clean
-	$(docker-test) run --rm \
-		${APP_SERVICE} bash -c "$(PIPENV_RUN) pre-commit run --all-files --verbose"
-
-test.lint.docker: clean
-	$(docker-test) run --rm \
-		check sh -c "$(PIPENV_RUN) pre-commit run --all-files --verbose"
+	$(docker-dev) run --rm \
+		${CHECK_SERVICE} bash -c "$(PIPENV_RUN) pre-commit run --all-files --verbose"
 
 test.syntax: clean
 	@echo $(MESSAGE) Running tests $(END)
